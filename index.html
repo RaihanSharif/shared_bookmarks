@@ -1,8 +1,81 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <script type="module" src="script.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared Bookmarks</title>
   </head>
   <body>
+    <header>
+      <h1>Shared Bookmarks</h1>
+    </header>
+
+    <main>
+      <section aria-labelledby="user-selection-heading">
+        <h2 id="user-selection-heading" class="visually-hidden">
+          Select a User
+        </h2>
+        <label for="user-dropdown">View bookmarks for:</label>
+        <select id="user-dropdown">
+          <option value="" disabled selected>Choose a user...</option>
+          <option value="user1">Alice Smith</option>
+          <option value="user2">Jason Kottke</option>
+          <option value="user3">Jeremy Keith</option>
+          <option value="user4">Andy Baio</option>
+          <option value="user5">Dev Choice</option>
+        </select>
+      </section>
+
+      <hr />
+
+      <section aria-labelledby="form-heading">
+        <h2 id="form-heading">Add a New Bookmark</h2>
+        <form id="bookmark-form" novalidate>
+          <div>
+            <label Sol for="bookmark-url">URL</label>
+            <input
+              type="url"
+              id="bookmark-url"
+              required
+              placeholder="https://example.com"
+            />
+          </div>
+
+          <div>
+            <label for="bookmark-title">Title</label>
+            <input
+              type="text"
+              id="bookmark-title"
+              required
+              placeholder="Site Title"
+            />
+          </div>
+
+          <div>
+            <label for="bookmark-description">Description</label>
+            <textarea
+              id="bookmark-description"
+              required
+              placeholder="Short description of the link..."
+            ></textarea>
+          </div>
+
+          <button type="submit">Save Bookmark</button>
+        </form>
+      </section>
+
+      <hr />
+
+      <section aria-labelledby="display-heading">
+        <h2 id="display-heading">Bookmarks</h2>
+        <p id="status-message" aria-live="polite">
+          Please select a user to view bookmarks.
+        </p>
+
+        <div id="bookmarks-list" role="feed" aria-busy="false"></div>
+      </section>
+    </main>
+
+    <script type="module" src="src/app.js"></script>
   </body>
 </html>
