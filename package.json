@@ -1,7 +1,11 @@
 {
-  "name": "project-shared-bookmarks",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "node example.test.js"
-  }
+    "name": "project-shared-bookmarks",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "node example.test.js",
+        "start": "browser-sync start --server --files '*.js, *.html, *.css'"
+    },
+    "devDependencies": {
+        "browser-sync": "^3.0.4"
+    }
 }
