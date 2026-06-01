@@ -15,6 +15,7 @@
         <h2 id="user-selection-heading" class="visually-hidden">
           Select a User
         </h2>
+
         <label for="user-dropdown">View bookmarks for:</label>
         <select id="user-dropdown">
           <option value="" disabled selected>Choose a user...</option>
@@ -31,8 +32,8 @@
       <section aria-labelledby="form-heading">
         <h2 id="form-heading">Add a New Bookmark</h2>
         <form id="bookmark-form" novalidate>
-          <div>
-            <label Sol for="bookmark-url">URL</label>
+          <div class="form-group">
+            <label for="bookmark-url">URL</label>
             <input
               type="url"
               id="bookmark-url"
@@ -41,7 +42,7 @@
             />
           </div>
 
-          <div>
+          <div class="form-group">
             <label for="bookmark-title">Title</label>
             <input
               type="text"
@@ -51,7 +52,7 @@
             />
           </div>
 
-          <div>
+          <div class="form-group">
             <label for="bookmark-description">Description</label>
             <textarea
               id="bookmark-description"
@@ -60,7 +61,7 @@
             ></textarea>
           </div>
 
-          <button type="submit">Save Bookmark</button>
+          <button type="submit" id="save-bookmark-btn">Save Bookmark</button>
         </form>
       </section>
 
@@ -72,7 +73,7 @@
           Please select a user to view bookmarks.
         </p>
 
-        <div id="bookmarks-list" role="feed" aria-busy="false"></div>
+        <ul id="bookmarks-list" aria-busy="false"></ul>
       </section>
     </main>
 
