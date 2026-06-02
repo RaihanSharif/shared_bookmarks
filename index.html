@@ -11,6 +11,7 @@
     </header>
 
     <main>
+      <!-- user dropdown to choose which bookmarks to display -->
       <section aria-labelledby="user-selection-heading">
         <h2 id="user-selection-heading" class="visually-hidden">
           Select a User
@@ -19,16 +20,17 @@
         <label for="user-dropdown">View bookmarks for:</label>
         <select id="user-dropdown">
           <option value="" disabled selected>Choose a user...</option>
-          <option value="user1">Alice Smith</option>
-          <option value="user2">Jason Kottke</option>
-          <option value="user3">Jeremy Keith</option>
-          <option value="user4">Andy Baio</option>
-          <option value="user5">Dev Choice</option>
+          <option value="user1">First User</option>
+          <option value="user2">Second User</option>
+          <option value="user3">Third User</option>
+          <option value="user4">Fourth User</option>
+          <option value="user5">Fifth User</option>
         </select>
       </section>
 
       <hr />
 
+      <!-- form for adding a new bookmark for the selected user -->
       <section aria-labelledby="form-heading">
         <h2 id="form-heading">Add a New Bookmark</h2>
         <form id="bookmark-form" novalidate>
@@ -73,10 +75,11 @@
           Please select a user to view bookmarks.
         </p>
 
+        <!-- bookmark list is updated dynamically in the script -->
         <ul id="bookmarks-list" aria-busy="false"></ul>
       </section>
     </main>
 
-    <script type="module" src="src/app.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
