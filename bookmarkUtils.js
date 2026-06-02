@@ -2,7 +2,7 @@ import { getData, setData } from "./storage.js";
 
 // validate parameters and trim whitespaces. Return an object
 // with properties {title, description, url, createdAt, likeCount}
-function createBookmark(title, description, url) {
+export function createBookmark(title, description, url) {
     if (!title || title.trim() === "") throw new Error("Title is required");
     if (title.length > 100)
         throw new Error("Title must be under 100 characters");
