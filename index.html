@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shared Bookmarks</title>
+    <script type="module" src="script.js"></script>
   </head>
   <body>
     <header>
@@ -81,18 +82,18 @@
 
         <template id="bookmark-card-template">
           <li class="bookmark-card">
-            <h3 class="bookmark-title"></h3>
-            <p class="bookmark-description"></p>
-            <a
-              class="bookmark-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            ></a>
+            <article class="bookmark-article">
+              <h3 class="bookmark-title"></h3>
+              <p class="bookmark-description"></p>
+              <a
+                class="bookmark-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              ></a>
+            </article>
           </li>
         </template>
       </section>
     </main>
-
-    <script type="module" src="script.js"></script>
   </body>
 </html>
