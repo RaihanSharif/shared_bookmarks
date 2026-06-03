@@ -106,7 +106,7 @@ function showBookmarks(userId) {
         createdTime.textContent = `Created at: ${date}`;
 
         const likeBtn = fragment.querySelector(".likes-btn");
-        likeBtn.textContent = `Likes: ${bm.likeCount}`;
+        likeBtn.textContent = `Like bookmark: (${bm.likeCount})`;
         likeBtn.addEventListener("click", (e) => {
             likeBookmark(userId, bm.url);
             showBookmarks(userId);
