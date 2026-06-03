@@ -43,7 +43,9 @@ if (bookmarkForm) {
         // Stop the browser from doing a full page refresh on submit.
         event.preventDefault();
 
-        // TODO: figure out what this is
+        // checks that the form input validations are passed
+        // or show error message to the user
+        // this is necessary because of event.preventDefault()
         if (!bookmarkForm.checkValidity()) {
             // Let the browser show the built-in validation messages.
             bookmarkForm.reportValidity();
