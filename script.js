@@ -79,7 +79,7 @@ function showBookmarks(userId) {
     // fetch reverse chronological order list of bookmarks for the user
     const bookmarks = getBookmarks(userId);
     if (bookmarks.length === 0) {
-        bookmarkList.textContent = "There are no bookmarks for this user!";
+        bookmarkList.textContent = `There are no bookmarks for user ${userId}`;
         return;
     }
     const bookmarkElems = bookmarks.map((bm) => {
