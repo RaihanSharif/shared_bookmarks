@@ -100,12 +100,14 @@ function showBookmarks(userId) {
 
         let date = new Date(bm.createdAt);
 
-        // format the date. E.g. "Wed, 3 Jun 2026"
-        date = date.toLocaleDateString("en-GB", {
+        // format the date. E.g. "Wed, 3 Jun 2026, 23:30"
+        date = date.toLocaleString("en-GB", {
             weekday: "short",
             day: "numeric",
             month: "short",
             year: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
         });
 
         const createdTime = fragment.querySelector(".created-time");
