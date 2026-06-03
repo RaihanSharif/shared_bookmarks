@@ -1,5 +1,5 @@
 // Import the storage helper so the page can read the available user IDs.
-import { addBookmark, getBookmarks } from "./bookmarkUtils.js";
+import { addBookmark, getBookmarks, likeBookmark } from "./bookmarkUtils.js";
 import { clearData, getData, getUserIds } from "./storage.js";
 
 // Grab the main UI elements we will interact with.
@@ -90,6 +90,13 @@ function showBookmarks(userId) {
         const link = fragment.querySelector(".bookmark-link");
         link.textContent = bm.title;
         link.href = bm.url;
+
+        const likeBtn = fragment.querySelector(".likes-btn");
+        likeBtn.textContent = `Likes: ${bm.likeCount}`;
+        likeBtn.addEventListener("click", (e) => {
+            likeBookmark(userId, bm.url);
+            showBookmarks(userId);
+        });
 
         return fragment;
     });
