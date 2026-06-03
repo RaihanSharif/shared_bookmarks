@@ -1,5 +1,6 @@
 // Import the storage helper so the page can read the available user IDs.
-import { getUserIds } from "./storage.js";
+import { addBookmark, getBookmarks } from "./bookmarkUtils.js";
+import { clearData, getData, getUserIds } from "./storage.js";
 
 // Grab the main UI elements we will interact with.
 const userDropdown = document.getElementById("user-dropdown");
@@ -24,9 +25,6 @@ function populateUserOptions() {
         option.textContent = `User ${userId}`;
         userDropdown.appendChild(option);
     });
-
-    // Log the available user IDs for debugging while the app is still in development.
-    console.log("Available user IDs:", userIds);
 }
 
 // When the page loads, populate the dropdown first.
@@ -42,9 +40,10 @@ if (userDropdown) {
 // Handle form submission and add a bookmark card to the list.
 if (bookmarkForm) {
     bookmarkForm.addEventListener("submit", (event) => {
+        // Stop the browser from doing a full page refresh on submit.
         event.preventDefault();
 
-        // Stop the browser from doing a full page refresh on submit.
+        // TODO: figure out what this is
         if (!bookmarkForm.checkValidity()) {
             // Let the browser show the built-in validation messages.
             bookmarkForm.reportValidity();
@@ -58,22 +57,46 @@ if (bookmarkForm) {
             .getElementById("bookmark-description")
             .value.trim();
 
-        // Placeholder log for the submitted bookmark data.
         console.log("Bookmark submit:", { url, title, description });
 
-        // Render a bookmark card using the template in the HTML.
-        if (bookmarkList && bookmarkTemplate) {
-            // Clone the template content so each new bookmark gets its own card.
-            const fragment =
-                bookmarkTemplate.content.firstElementChild.cloneNode(true);
-            fragment.querySelector(".bookmark-description").textContent =
-                description;
-            const link = fragment.querySelector(".bookmark-link");
+        // get the currently selected user
+        const userId = userDropdown.value;
 
-            link.textContent = title;
-            link.href = url;
-            bookmarkList.appendChild(fragment);
-            console.log(fragment);
+        if (userId) {
+            addBookmark(userId, title, description, url);
+            // Render a bookmark card using the template in the HTML.
+            if (bookmarkList && bookmarkTemplate) {
+                const bookmarks = getBookmarks(userId);
+                showBookmarks(bookmarks);
+            }
+        } else {
+            alert("Please select a user before adding a bookmark");
         }
     });
 }
+
+function showBookmarks(bookmarks) {
+    const bookmarkElems = bookmarks.map((bm) => {
+        const fragment =
+            bookmarkTemplate.content.firstElementChild.cloneNode(true);
+        fragment.querySelector(".bookmark-description").textContent =
+            bm.description;
+        const link = fragment.querySelector(".bookmark-link");
+        link.textContent = bm.title;
+        link.href = bm.url;
+
+        return fragment;
+    });
+    bookmarkList.replaceChildren(...bookmarkElems);
+}
+
+// console.log(getData("1"));
+// console.log(getData("2"));
+// console.log(getData("3"));
+// console.log(getData("4"));
+// console.log(getData("5"));
+// clearData("1");
+// clearData("2");
+// clearData("3");
+// clearData("4");
+// clearData("5");
