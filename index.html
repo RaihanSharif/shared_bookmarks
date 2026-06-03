@@ -11,35 +11,32 @@
     </header>
 
     <main>
-      <!-- user dropdown to choose which bookmarks to display -->
+      <!-- Choose which user's bookmarks should be shown in the list. -->
       <section aria-labelledby="user-selection-heading">
         <h2 id="user-selection-heading" class="visually-hidden">
           Select a User
         </h2>
 
         <label for="user-dropdown">View bookmarks for:</label>
-        <select id="user-dropdown">
+        <select id="user-dropdown" required>
           <option value="" disabled selected>Choose a user...</option>
-          <option value="user1">First User</option>
-          <option value="user2">Second User</option>
-          <option value="user3">Third User</option>
-          <option value="user4">Fourth User</option>
-          <option value="user5">Fifth User</option>
         </select>
       </section>
 
       <hr />
 
-      <!-- form for adding a new bookmark for the selected user -->
+      <!-- Add a new bookmark entry for the currently selected user. -->
       <section aria-labelledby="form-heading">
         <h2 id="form-heading">Add a New Bookmark</h2>
-        <form id="bookmark-form" novalidate>
+        <form id="bookmark-form">
           <div class="form-group">
             <label for="bookmark-url">URL</label>
             <input
               type="url"
               id="bookmark-url"
               required
+              minlength="10"
+              maxlength="2048"
               placeholder="https://example.com"
             />
           </div>
@@ -50,6 +47,8 @@
               type="text"
               id="bookmark-title"
               required
+              minlength="3"
+              maxlength="100"
               placeholder="Site Title"
             />
           </div>
@@ -59,6 +58,8 @@
             <textarea
               id="bookmark-description"
               required
+              minlength="5"
+              maxlength="280"
               placeholder="Short description of the link..."
             ></textarea>
           </div>
@@ -75,8 +76,20 @@
           Please select a user to view bookmarks.
         </p>
 
-        <!-- bookmark list is updated dynamically in the script -->
+        <!-- The bookmark list is filled dynamically by the script as cards are added. -->
         <ul id="bookmarks-list" aria-busy="false"></ul>
+
+        <template id="bookmark-card-template">
+          <li class="bookmark-card">
+            <h3 class="bookmark-title"></h3>
+            <p class="bookmark-description"></p>
+            <a
+              class="bookmark-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            ></a>
+          </li>
+        </template>
       </section>
     </main>
 
