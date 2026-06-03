@@ -98,6 +98,10 @@ function showBookmarks(userId) {
             showBookmarks(userId);
         });
 
+        const copyBtn = fragment.querySelector(".copy-btn");
+        copyBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(bm.url);
+        });
         return fragment;
     });
     bookmarkList.replaceChildren(...bookmarkElems);
