@@ -66,7 +66,7 @@ if (bookmarkForm) {
             addBookmark(userId, title, description, url);
             // Render a bookmark card using the template in the HTML.
             if (bookmarkList && bookmarkTemplate) {
-                // fetch reverse chronological sorted bookmarks
+                // fetch reverse chronological order list of bookmarks for the user
                 const bookmarks = getBookmarks(userId);
                 showBookmarks(bookmarks);
             }
