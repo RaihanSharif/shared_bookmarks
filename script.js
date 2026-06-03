@@ -87,9 +87,23 @@ function showBookmarks(userId) {
             bookmarkTemplate.content.firstElementChild.cloneNode(true);
         fragment.querySelector(".bookmark-description").textContent =
             bm.description;
+
         const link = fragment.querySelector(".bookmark-link");
         link.textContent = bm.title;
         link.href = bm.url;
+
+        let date = new Date(bm.createdAt);
+
+        // format the date. E.g. "Wed, 3 Jun 2026"
+        date = date.toLocaleDateString("en-GB", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+        });
+
+        const createdTime = fragment.querySelector(".created-time");
+        createdTime.textContent = `Created at: ${date}`;
 
         const likeBtn = fragment.querySelector(".likes-btn");
         likeBtn.textContent = `Likes: ${bm.likeCount}`;
