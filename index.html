@@ -1,98 +1,96 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shared Bookmarks</title>
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <header>
-      <h1>Shared Bookmarks</h1>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shared Bookmarks</title>
+        <script type="module" src="script.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Shared Bookmarks</h1>
+        </header>
 
-    <main>
-      <!-- Choose which user's bookmarks should be shown in the list. -->
-      <section aria-labelledby="user-selection-heading">
-        <h2 id="user-selection-heading" class="visually-hidden">
-          Select a User
-        </h2>
+        <main>
+            <!-- Choose which user's bookmarks should be shown in the list. -->
+            <section aria-labelledby="user-selection-heading">
+                <h2 id="user-selection-heading" class="visually-hidden">
+                    Select a User
+                </h2>
 
-        <label for="user-dropdown">View bookmarks for:</label>
-        <select id="user-dropdown" required>
-          <option value="" disabled selected>Choose a user...</option>
-        </select>
-      </section>
+                <label for="user-dropdown">View bookmarks for:</label>
+                <select id="user-dropdown" required>
+                    <option value="" disabled selected>Choose a user...</option>
+                </select>
+            </section>
 
-      <hr />
+            <hr />
 
-      <!-- Add a new bookmark entry for the currently selected user. -->
-      <section aria-labelledby="form-heading">
-        <h2 id="form-heading">Add a New Bookmark</h2>
-        <form id="bookmark-form">
-          <div class="form-group">
-            <label for="bookmark-url">URL</label>
-            <input
-              type="url"
-              id="bookmark-url"
-              required
-              minlength="10"
-              maxlength="2048"
-              placeholder="https://example.com"
-            />
-          </div>
+            <!-- Add a new bookmark entry for the currently selected user. -->
+            <section aria-labelledby="form-heading">
+                <h2 id="form-heading">Add a New Bookmark</h2>
+                <form id="bookmark-form">
+                    <div class="form-group">
+                        <label for="bookmark-url">URL</label>
+                        <input
+                            type="url"
+                            id="bookmark-url"
+                            required
+                            minlength="10"
+                            maxlength="2048"
+                            placeholder="https://example.com" />
+                    </div>
 
-          <div class="form-group">
-            <label for="bookmark-title">Title</label>
-            <input
-              type="text"
-              id="bookmark-title"
-              required
-              minlength="3"
-              maxlength="100"
-              placeholder="Site Title"
-            />
-          </div>
+                    <div class="form-group">
+                        <label for="bookmark-title">Title</label>
+                        <input
+                            type="text"
+                            id="bookmark-title"
+                            required
+                            minlength="3"
+                            maxlength="100"
+                            placeholder="Site Title" />
+                    </div>
 
-          <div class="form-group">
-            <label for="bookmark-description">Description</label>
-            <textarea
-              id="bookmark-description"
-              required
-              minlength="5"
-              maxlength="280"
-              placeholder="Short description of the link..."
-            ></textarea>
-          </div>
+                    <div class="form-group">
+                        <label for="bookmark-description">Description</label>
+                        <textarea
+                            id="bookmark-description"
+                            required
+                            minlength="5"
+                            maxlength="280"
+                            placeholder="Short description of the link..."></textarea>
+                    </div>
 
-          <button type="submit" id="save-bookmark-btn">Save Bookmark</button>
-        </form>
-      </section>
+                    <button type="submit" id="save-bookmark-btn">
+                        Save Bookmark
+                    </button>
+                </form>
+            </section>
 
-      <hr />
+            <hr />
 
-      <section aria-labelledby="display-heading">
-        <h2 id="display-heading">Bookmarks</h2>
-        <p id="status-message" aria-live="polite">
-          Please select a user to view bookmarks.
-        </p>
+            <section aria-labelledby="display-heading">
+                <h2 id="display-heading">Bookmarks</h2>
+                <p id="status-message" aria-live="polite">
+                    Please select a user to view bookmarks.
+                </p>
 
-        <!-- The bookmark list is filled dynamically by the script as cards are added. -->
-        <ul id="bookmarks-list" aria-busy="false"></ul>
+                <!-- The bookmark list is filled dynamically by the script as cards are added. -->
+                <ul id="bookmarks-list" aria-busy="false"></ul>
 
-        <template id="bookmark-card-template">
-          <li class="bookmark-card">
-            <h3 class="bookmark-title">
-              <a
-                class="bookmark-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              ></a>
-            </h3>
-            <p class="bookmark-description"></p>
-          </li>
-        </template>
-      </section>
-    </main>
-  </body>
+                <template id="bookmark-card-template">
+                    <article class="bookmark-article">
+                        <h3 class="bookmark-title">
+                            <a
+                                class="bookmark-link"
+                                target="_blank"
+                                rel="noopener noreferrer"></a>
+                        </h3>
+                        <p class="bookmark-description"></p>
+                    </article>
+                </template>
+            </section>
+        </main>
+    </body>
 </html>
