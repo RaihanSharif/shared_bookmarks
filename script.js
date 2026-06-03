@@ -121,6 +121,7 @@ function showBookmarks(userId) {
         const copyBtn = fragment.querySelector(".copy-btn");
         copyBtn.addEventListener("click", () => {
             navigator.clipboard.writeText(bm.url);
+            alert(`url copied to clipboard: ${bm.url}`);
         });
         return fragment;
     });
