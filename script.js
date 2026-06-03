@@ -63,7 +63,11 @@ if (bookmarkForm) {
         const userId = userDropdown.value;
 
         if (userId) {
-            addBookmark(userId, title, description, url);
+            try {
+                addBookmark(userId, title, description, url);
+            } catch (e) {
+                alert(e.message);
+            }
             // Render a bookmark card using the template in the HTML.
             if (bookmarkList && bookmarkTemplate) {
                 bookmarkForm.reset(); // clears the form fields after successful submission.
