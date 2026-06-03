@@ -47,7 +47,6 @@ export function addBookmark(userId, title, description, url) {
     const bookmark = createBookmark(title, description, url);
     currentBookmarks.push(bookmark);
     setData(userId, currentBookmarks);
-    return currentBookmarks;
 }
 
 // remove a single bookmark
