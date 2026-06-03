@@ -66,6 +66,7 @@ if (bookmarkForm) {
             addBookmark(userId, title, description, url);
             // Render a bookmark card using the template in the HTML.
             if (bookmarkList && bookmarkTemplate) {
+                bookmarkForm.reset(); // clears the form fields after successful submission.
                 showBookmarks(userId);
             }
         } else {
