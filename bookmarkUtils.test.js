@@ -6,6 +6,9 @@ import {
     likeBookmark,
 } from "./bookmarkUtils.js";
 
+import { getData } from "./storage.js"; // used for mocking
+jest.mock("./storage.js");
+
 describe("createBookmark function", () => {
     const validTitle = "test bookmark";
     const validDescription = "this is an example bookmark";
@@ -19,7 +22,7 @@ describe("createBookmark function", () => {
             description: validDescription,
             url: validUrl,
             likeCount: 0,
-            createdAt: expect.any(Number),
+            createdAt: expect.any(Number), // simpler to test that a date exists
         });
     });
 
@@ -36,6 +39,7 @@ describe("createBookmark function", () => {
         });
     });
 
+    // must wrap in function so jest's expect can catch the thrown error
     test("throws if title is empty", () => {
         expect(() => createBookmark("", validDescription, validUrl)).toThrow(
             "Title is required",
@@ -64,5 +68,27 @@ describe("createBookmark function", () => {
         expect(() =>
             createBookmark(validTitle, validDescription, "bbc."),
         ).toThrow("Invalid URL");
+    });
+});
+
+describe("getBookmarks function", () => {
+    afterEach(() => jest.clearAllMocks());
+    test("returns bookmarks sorted by most recent first", () => {
+        const bookmarks = [
+            { url: "https://a.com", createdAt: 1000, likeCount: 0 },
+            { url: "https://b.com", createdAt: 3000, likeCount: 0 },
+            { url: "https://c.com", createdAt: 2000, likeCount: 0 },
+        ];
+        getData.mockReturnValue(bookmarks);
+
+        const result = getBookmarks("1");
+        expect(result[0].url).toBe("https://b.com");
+        expect(result[1].url).toBe("https://c.com");
+        expect(result[2].url).toBe("https://a.com");
+    });
+
+    test("returns empty array if no bookmarks exist", () => {
+        getData.mockReturnValue(null);
+        expect(getBookmarks("1")).toEqual([]);
     });
 });
