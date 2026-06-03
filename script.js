@@ -33,7 +33,7 @@ if (userDropdown) {
 
     // Log the chosen user whenever the dropdown value changes.
     userDropdown.addEventListener("change", (event) => {
-        console.log("Selected user ID:", event.target.value);
+        showBookmarks(event.target.value);
     });
 }
 
@@ -66,9 +66,7 @@ if (bookmarkForm) {
             addBookmark(userId, title, description, url);
             // Render a bookmark card using the template in the HTML.
             if (bookmarkList && bookmarkTemplate) {
-                // fetch reverse chronological order list of bookmarks for the user
-                const bookmarks = getBookmarks(userId);
-                showBookmarks(bookmarks);
+                showBookmarks(userId);
             }
         } else {
             alert("Please select a user before adding a bookmark");
@@ -76,7 +74,13 @@ if (bookmarkForm) {
     });
 }
 
-function showBookmarks(bookmarks) {
+function showBookmarks(userId) {
+    // fetch reverse chronological order list of bookmarks for the user
+    const bookmarks = getBookmarks(userId);
+    if (bookmarks.length === 0) {
+        bookmarkList.textContent = "There are no bookmarks for this user!";
+        return;
+    }
     const bookmarkElems = bookmarks.map((bm) => {
         const fragment =
             bookmarkTemplate.content.firstElementChild.cloneNode(true);
