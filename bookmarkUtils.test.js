@@ -156,3 +156,53 @@ describe("addBookmark function", () => {
         );
     });
 });
+
+describe("likeBookmark function", () => {
+    afterEach(jest.clearAllMocks);
+
+    test("increments likeCount for the correct bookmark", () => {
+        const bookmarks = [{ url: "https://a.com", likeCount: 0 }];
+        getData.mockReturnValue(bookmarks);
+
+        likeBookmark("1", "https://a.com");
+
+        expect(setData).toHaveBeenCalledWith(
+            "1",
+            expect.arrayContaining([
+                expect.objectContaining({ url: "https://a.com", likeCount: 1 }),
+            ]),
+        );
+    });
+
+    test("does not increment likeCount for other bookmarks", () => {
+        const bookmarks = [
+            { url: "https://a.com", likeCount: 0 },
+            { url: "https://b.com", likeCount: 0 },
+        ];
+        getData.mockReturnValue(bookmarks);
+
+        likeBookmark("1", "https://a.com");
+
+        expect(setData).toHaveBeenCalledWith(
+            "1",
+            expect.arrayContaining([
+                expect.objectContaining({ url: "https://b.com", likeCount: 0 }), // the unedited bookmark
+            ]),
+        );
+    });
+
+    test("throws if bookmark is not found", () => {
+        getData.mockReturnValue([{ url: "https://a.com", likeCount: 0 }]);
+
+        expect(() => likeBookmark("1", "https://b.com")).toThrow(
+            "Bookmark not found",
+        );
+    });
+
+    test("does not save data if bookmark is not found", () => {
+        getData.mockReturnValue([]);
+
+        expect(() => likeBookmark("1", "https://a.com")).toThrow();
+        expect(setData).not.toHaveBeenCalled(); // does not call setData on some unspecifed userId, URL
+    });
+});
