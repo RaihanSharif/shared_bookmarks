@@ -6,7 +6,7 @@ import {
     likeBookmark,
 } from "./bookmarkUtils.js";
 
-import { getData } from "./storage.js"; // used for mocking
+import { getData, setData } from "./storage.js"; // used for mocking
 jest.mock("./storage.js");
 
 describe("createBookmark function", () => {
@@ -22,7 +22,7 @@ describe("createBookmark function", () => {
             description: validDescription,
             url: validUrl,
             likeCount: 0,
-            createdAt: expect.any(Number), // simpler to test that a date exists
+            createdAt: expect.any(Number), // Simpler to test that a date exists
         });
     });
 
@@ -39,7 +39,7 @@ describe("createBookmark function", () => {
         });
     });
 
-    // must wrap in function so jest's expect can catch the thrown error
+    // Must wrap in function so jest's expect can catch the thrown error
     test("throws if title is empty", () => {
         expect(() => createBookmark("", validDescription, validUrl)).toThrow(
             "Title is required",
@@ -72,7 +72,10 @@ describe("createBookmark function", () => {
 });
 
 describe("getBookmarks function", () => {
+    // mMst clear mocks so that after each test so that
+    // 'localStorage' is cleared, and does not interfere with next test
     afterEach(jest.clearAllMocks);
+
     test("returns bookmarks sorted by most recent first", () => {
         const bookmarks = [
             { url: "https://a.com", createdAt: 1000, likeCount: 0 },
@@ -90,5 +93,66 @@ describe("getBookmarks function", () => {
     test("returns empty array if no bookmarks exist", () => {
         getData.mockReturnValue(null);
         expect(getBookmarks("1")).toEqual([]);
+    });
+});
+
+describe("addBookmark function", () => {
+    afterEach(jest.clearAllMocks);
+
+    test("stores bookmark in localStorage for the correct user", () => {
+        getData.mockReturnValue([]); // mocks empty initial bookmarks array
+
+        addBookmark("1", "Title", "Desc", "https://a.com");
+
+        // Using arrayContaining, objectContaining
+        // allows us to test that some array with some object with url
+        // is created without having to check all the specifics of the bookmark object
+        expect(setData).toHaveBeenCalledWith(
+            "1",
+            expect.arrayContaining([
+                expect.objectContaining({ url: "https://a.com" }),
+            ]),
+        );
+    });
+
+    test("does not store bookmark under a different user", () => {
+        getData.mockReturnValue([]);
+
+        addBookmark("1", "Title", "Desc", "https://a.com");
+
+        // ensure setData is only called once and only with the right userId as key
+        expect(setData).toHaveBeenCalledTimes(1);
+        expect(setData).toHaveBeenCalledWith("1", expect.anything());
+    });
+
+    test("throws if bookmark URL already exists for that user", () => {
+        const existing = [{ url: "https://a.com" }];
+        getData.mockReturnValue(existing);
+
+        expect(() =>
+            addBookmark("1", "Title", "Desc", "https://a.com"),
+        ).toThrow("Bookmark already exists");
+    });
+
+    test("allows same URL for a different user", () => {
+        // set up a mock implementation of getData, to simulate that user 1 has same url
+        // as the one that will be saved to user 2
+        getData.mockImplementation((userId) => {
+            if (userId === "1") return [{ url: "https://a.com" }];
+            return [];
+        });
+
+        // should not throw duplicatation error
+        expect(() =>
+            addBookmark("2", "Title", "Desc", "https://a.com"),
+        ).not.toThrow();
+
+        // should store data for user 2
+        expect(setData).toHaveBeenCalledWith(
+            "2",
+            expect.arrayContaining([
+                expect.objectContaining({ url: "https://a.com" }),
+            ]),
+        );
     });
 });
