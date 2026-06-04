@@ -14,11 +14,11 @@ function populateUserOptions() {
 
     const userIds = getUserIds();
 
-    // Reset the dropdown to a neutral placeholder option.
+    // Reset the dropdown to a neutral placeholder option
     userDropdown.innerHTML =
         '<option value="" disabled selected>Choose a user...</option>';
 
-    // Create one option per user ID returned by storage.
+    // Create one option per user ID returned by storage
     userIds.forEach((userId) => {
         const option = document.createElement("option");
         option.value = userId;
@@ -27,28 +27,29 @@ function populateUserOptions() {
     });
 }
 
-// When the page loads, populate the dropdown first.
+// When the page loads, populate the dropdown first
 if (userDropdown) {
     populateUserOptions();
 
-    // When user selected call showBookmarks function to show list of all
-    // bookmarks for that user.
+    // When user selected, call showBookmarks function to show list of all
+    // bookmarks for that user
     userDropdown.addEventListener("change", (event) => {
         showBookmarks(event.target.value);
     });
 }
 
-// when bookmark form submitted
-// check validation, save data to localStorage
-// show updated list of bookmarks
+// When bookmark form submitted,
+// check validation, save data to localStorage.
+// Show updated list of bookmarks.
 if (bookmarkForm) {
     bookmarkForm.addEventListener("submit", (event) => {
-        // Stop the browser from doing a full page refresh on submit.
+        // Stop the browser from doing a full page refresh on submit
         event.preventDefault();
 
-        // checks that the form input validations are passed
-        // or show error message to the user
-        // this is necessary because of event.preventDefault()
+        // Checks that the form input validations are passed,
+        // or show error message to the user.
+        // This is necessary because of event.preventDefault() which
+        // stops the automatic validation checks.
         if (!bookmarkForm.checkValidity()) {
             // Let the browser show the built-in validation messages.
             bookmarkForm.reportValidity();
@@ -62,9 +63,7 @@ if (bookmarkForm) {
             .getElementById("bookmark-description")
             .value.trim();
 
-        // get the currently selected user
         const userId = userDropdown.value;
-
         if (userId) {
             try {
                 addBookmark(userId, title, description, url); // throws error if bookmark already exists
@@ -82,9 +81,9 @@ if (bookmarkForm) {
     });
 }
 
-// fetch data from localStore
-// create DOM elements for relevent properties of fetched bookmark Object
-// and display them in the bookmark container
+// Fetch data from localStore
+// Create bookmark card with fetched data
+// Display them in the bookmark container
 function showBookmarks(userId) {
     // fetch reverse chronological order list of bookmarks for the user
     const bookmarks = getBookmarks(userId);
@@ -102,10 +101,10 @@ function showBookmarks(userId) {
         link.textContent = bm.title;
         link.href = bm.url;
 
-        let date = new Date(bm.createdAt);
+        const date = new Date(bm.createdAt);
 
-        // format the date. E.g. "Wed, 3 Jun 2026, 23:30"
-        date = date.toLocaleString("en-GB", {
+        // Format the date. E.g. "Wed, 3 Jun 2026, 23:30"
+        const formattedDate = date.toLocaleString("en-GB", {
             weekday: "short",
             day: "numeric",
             month: "short",
@@ -115,7 +114,7 @@ function showBookmarks(userId) {
         });
 
         const createdTime = fragment.querySelector(".created-time");
-        createdTime.textContent = `Created at: ${date}`;
+        createdTime.textContent = `Created at: ${formattedDate}`;
 
         const likeBtn = fragment.querySelector(".likes-btn");
         likeBtn.textContent = `Like bookmark: (${bm.likeCount})`;
