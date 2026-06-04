@@ -1,6 +1,6 @@
 // Import the storage helper so the page can read the available user IDs.
 import { addBookmark, getBookmarks, likeBookmark } from "./bookmarkUtils.js";
-import { clearData, getData, getUserIds } from "./storage.js";
+import { getUserIds } from "./storage.js";
 
 // Grab the main UI elements we will interact with.
 const userDropdown = document.getElementById("user-dropdown");
