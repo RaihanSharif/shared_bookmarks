@@ -119,7 +119,11 @@ function showBookmarks(userId) {
         const likeBtn = fragment.querySelector(".likes-btn");
         likeBtn.textContent = `Like bookmark: (${bm.likeCount})`;
         likeBtn.addEventListener("click", (e) => {
-            likeBookmark(userId, bm.url);
+            try {
+                likeBookmark(userId, bm.url);
+            } catch (e) {
+                alert(e.message); // in case book mark is not found
+            }
             showBookmarks(userId);
         });
 
