@@ -10,8 +10,8 @@ export function createBookmark(title, description, url) {
     if (!description || description.trim() === "")
         throw new Error("Description is required");
 
-    if (description.length > 500)
-        throw new Error("Description must be under 500 characters");
+    if (description.length > 280)
+        throw new Error("Description must be under 280 characters");
 
     url = url.trim();
     try {
