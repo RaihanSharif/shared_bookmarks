@@ -58,10 +58,10 @@ describe("createBookmark function", () => {
         );
     });
 
-    test("throws if description exceeds 500 characters", () => {
+    test("throws if description exceeds 280 characters", () => {
         expect(() =>
-            createBookmark(validTitle, "a".repeat(501), validUrl),
-        ).toThrow("Description must be under 500 characters");
+            createBookmark(validTitle, "a".repeat(281), validUrl),
+        ).toThrow("Description must be under 280 characters");
     });
 
     test("throws if url is invalid", () => {
