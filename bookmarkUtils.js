@@ -47,17 +47,6 @@ export function addBookmark(userId, title, description, url) {
     const bookmark = createBookmark(title, description, url);
     currentBookmarks.push(bookmark);
     setData(userId, currentBookmarks);
-    return currentBookmarks;
-}
-
-// remove a single bookmark
-export function removeBookmark(userId, url) {
-    const bookmarks = getData(userId) ?? [];
-    const filtered = bookmarks.filter((bm) => bm.url !== url);
-    if (filtered.length === bookmarks.length)
-        throw new Error("Bookmark not found");
-    setData(userId, filtered);
-    return filtered;
 }
 
 // gets a specific bookmark from localStorage

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Shared Bookmarks</title>
         <script type="module" src="script.js"></script>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <header>
@@ -72,12 +73,9 @@
 
             <section aria-labelledby="display-heading">
                 <h2 id="display-heading">Bookmarks</h2>
-                <p id="status-message" aria-live="polite">
-                    Please select a user to view bookmarks.
-                </p>
 
-                <!-- The bookmark list is filled dynamically by the script as cards are added. -->
-                <ul id="bookmarks-list" aria-busy="false"></ul>
+                <!-- The bookmark container is filled dynamically by the script as cards are added. -->
+                <div id="bookmarks-container" aria-busy="false"></div>
 
                 <template id="bookmark-card-template">
                     <article class="bookmark-article">
@@ -88,6 +86,11 @@
                                 rel="noopener noreferrer"></a>
                         </h3>
                         <p class="bookmark-description"></p>
+                        <p class="created-time"></p>
+                        <div class="bookmark-btns">
+                            <button class="likes-btn"></button>
+                            <button class="copy-btn">Copy to clipboard</button>
+                        </div>
                     </article>
                 </template>
             </section>
