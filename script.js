@@ -5,7 +5,7 @@ import { getUserIds } from "./storage.js";
 // Grab the main UI elements we will interact with.
 const userDropdown = document.getElementById("user-dropdown");
 const bookmarkForm = document.getElementById("bookmark-form");
-const bookmarkList = document.getElementById("bookmarks-list");
+const bookmarksContainer = document.getElementById("bookmarks-container");
 const bookmarkTemplate = document.getElementById("bookmark-card-template");
 
 // Fill the dropdown from the stored user IDs
@@ -71,7 +71,7 @@ if (bookmarkForm) {
                 alert(e.message);
             }
             // Render a bookmark card using the template in the HTML.
-            if (bookmarkList && bookmarkTemplate) {
+            if (bookmarksContainer && bookmarkTemplate) {
                 bookmarkForm.reset(); // clears the form fields after successful submission.
                 showBookmarks(userId);
             }
@@ -88,7 +88,7 @@ function showBookmarks(userId) {
     // fetch reverse chronological order list of bookmarks for the user
     const bookmarks = getBookmarks(userId);
     if (bookmarks.length === 0) {
-        bookmarkList.textContent = `There are no bookmarks for user ${userId}`;
+        bookmarksContainer.textContent = `There are no bookmarks for user ${userId}`;
         return;
     }
     const bookmarkElems = bookmarks.map((bm) => {
@@ -130,5 +130,5 @@ function showBookmarks(userId) {
         });
         return fragment;
     });
-    bookmarkList.replaceChildren(...bookmarkElems);
+    bookmarksContainer.replaceChildren(...bookmarkElems);
 }
