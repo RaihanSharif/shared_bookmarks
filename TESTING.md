@@ -1,8 +1,14 @@
 # Tests for each assignment rubric are listed below
 
-#### Website must contain a dropdown
+#### Website must contain a dropdown which lists five users
+We fetched the list of users from localStorage using `getUserIds() from the provided storage file.
+We also manually tested this feature. 
+<img width="683" height="626" alt="Screenshot 2026-06-04 at 12 13 44" src="https://github.com/user-attachments/assets/fac9af0c-a0ea-4f10-98b5-49144af29df3" />
+
 
 #### Selecting a user must display a list of bookmarks for the relevant user
+We tested the fetching of the bookmarks from localStorage using unit tests, and then manually confirmed on the UI. 
+The unit tests can be found in the file [bookmarkUtils.test.js](./bookmarkUtils.test.js)!
 
 #### If there are no bookmarks for the selected user, a messsage is displayed to explain this
 
