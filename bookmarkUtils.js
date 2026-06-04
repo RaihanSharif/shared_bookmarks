@@ -49,16 +49,6 @@ export function addBookmark(userId, title, description, url) {
     setData(userId, currentBookmarks);
 }
 
-// remove a single bookmark
-export function removeBookmark(userId, url) {
-    const bookmarks = getData(userId) ?? [];
-    const filtered = bookmarks.filter((bm) => bm.url !== url);
-    if (filtered.length === bookmarks.length)
-        throw new Error("Bookmark not found");
-    setData(userId, filtered);
-    return filtered;
-}
-
 // gets a specific bookmark from localStorage
 // updates likeCount and immediately stores in localStorage again
 export function likeBookmark(userId, url) {

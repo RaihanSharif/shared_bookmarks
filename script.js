@@ -31,13 +31,16 @@ function populateUserOptions() {
 if (userDropdown) {
     populateUserOptions();
 
-    // Log the chosen user whenever the dropdown value changes.
+    // When user selected call showBookmarks function to show list of all
+    // bookmarks for that user.
     userDropdown.addEventListener("change", (event) => {
         showBookmarks(event.target.value);
     });
 }
 
-// Handle form submission and add a bookmark card to the list.
+// when bookmark form submitted
+// check validation, save data to localStorage
+// show updated list of bookmarks
 if (bookmarkForm) {
     bookmarkForm.addEventListener("submit", (event) => {
         // Stop the browser from doing a full page refresh on submit.
@@ -59,14 +62,12 @@ if (bookmarkForm) {
             .getElementById("bookmark-description")
             .value.trim();
 
-        console.log("Bookmark submit:", { url, title, description });
-
         // get the currently selected user
         const userId = userDropdown.value;
 
         if (userId) {
             try {
-                addBookmark(userId, title, description, url);
+                addBookmark(userId, title, description, url); // throws error if bookmark already exists
             } catch (e) {
                 alert(e.message);
             }
@@ -81,6 +82,9 @@ if (bookmarkForm) {
     });
 }
 
+// fetch data from localStore
+// create DOM elements for relevent properties of fetched bookmark Object
+// and display them in the bookmark container
 function showBookmarks(userId) {
     // fetch reverse chronological order list of bookmarks for the user
     const bookmarks = getBookmarks(userId);
@@ -129,14 +133,3 @@ function showBookmarks(userId) {
     });
     bookmarkList.replaceChildren(...bookmarkElems);
 }
-
-// console.log(getData("1"));
-// console.log(getData("2"));
-// console.log(getData("3"));
-// console.log(getData("4"));
-// console.log(getData("5"));
-// clearData("1");
-// clearData("2");
-// clearData("3");
-// clearData("4");
-// clearData("5");
